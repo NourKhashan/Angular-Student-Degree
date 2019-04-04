@@ -1,0 +1,54 @@
+<diV class="row">
+  <!-- <div class="col-md-2">
+    <h5>ID</h5>
+  </div> -->
+  <!-- <div class="col-md-6">
+      <input type="text" [(ngModel)]="nstd.Id" class="form-control" placeholder="Enter Id"/>
+  </div> -->
+  <div class="col-md-4"></div>
+</diV>
+<diV class="row">
+    <div class="col-md-2">
+      <h5>Name</h5>
+    </div>
+    <div class="col-md-6">
+        <input type="text" [(ngModel)]="nstd.Name" class="form-control" placeholder="Enter name"/>
+    </div>
+    <br/>
+    <div class="col-md-4">
+        <button type="button" (click)="addNewStudent()" class="btn btn-primary">Add new Student</button>
+    </div>
+  </diV>
+  <diV class="row">
+      <div class="col-md-2">
+        <h5>Image</h5>
+      </div>
+      <div class="col-md-6">
+          <input type="text" [(ngModel)]="nstd.Image" class="form-control" placeholder="Enter Image"/>
+      </div>
+      <!-- <div class="col-md-4">
+          <button type="button" (click)="showAllStudent()" class="btn btn-info">Load All Students</button>
+      </div> -->
+    </diV>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of studentlist">
+      <td>{{item.Id}}</td>
+      <td>{{item.Name}}</td>
+      <td>{{item.Image}}</td>
+      <td>
+        <button (click)="getStudentData(item.Id)"  class="btn btn-info">Details</button>
+        <button (click)="DeleteStudent(item.Id)"  class="btn btn-danger">Delete</button>
+        <button (click)="EditStudent(item.Id)"  class="btn btn-info">update</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

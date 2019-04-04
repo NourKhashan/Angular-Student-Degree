@@ -1,0 +1,24 @@
+
+
+<mat-form-field>
+  <mat-label>Select an option</mat-label>
+  <mat-select (selectionChange)="getStudents()" [(value)]="SubjectId" >
+    <mat-option *ngFor="let item of Subjects" value={{item.Id}}>{{item.Name}}</mat-option>
+
+  </mat-select>
+</mat-form-field>
+
+
+
+
+
+
+<ol >
+  <li  *ngFor="let item of Students; let i=index">
+      {{item.Name}}:<input matInput placeholder="Degree" value="0" [(ngModel)]="degrees[i]" >
+
+  </li>
+
+  
+</ol>
+<button (click)="UpdateDegrees()">Update</button>
