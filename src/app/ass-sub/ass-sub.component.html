@@ -20,10 +20,9 @@
     <mat-form-field>
         <mat-label>Subjects</mat-label>
         <mat-select  multiple [(ngModel)]="selectedSubId" >
-            <mat-option *ngFor="let sub of subjects" [value]="sub.Id">{{sub.Name}}</mat-option>
+            <mat-option *ngFor="let sub of OtherSubs" [value]="sub.Id">{{sub.Name}}</mat-option>
         </mat-select>
     </mat-form-field> 
 
-
-<button  (click)="Assign(selectedStdId,selectedSubId)" mat-button>Assign</button> 
-
+<br><br>
+<button class="btn btn-primary"  (click)="Assign(selectedStdId,selectedSubId)" mat-button>Assign</button> 

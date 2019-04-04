@@ -16,100 +16,113 @@ import { Subjectdegrees } from '../Subject/subjectdegrees';
 })
 export class AssSubComponent implements OnInit {
 
-  students:Student[]=[];
+   students:Student[]=[]
+ 
 
-  subjects:Subject[]=[];
-  Subjectdegrees:Subjectdegrees[]=[];
+  Allsubjects:Subject[]=[]
+  OtherSubs:Subject[]=[]
+ 
+  stdSub:Subjectdegrees=new Subjectdegrees();
+
 
   constructor(private StudentService:StudentService,
      private SubjectService: SubjectService,
      private SubjectdegreesService: SubjectdegreesService) {}
 
   ngOnInit() {
-    console.log("OnInit")
     this.StudentService.getAll().subscribe(
-      (subjs)=>{
-        console.log("hhh",subjs)
-        this.students=subjs;
-
-        
-      },
-      (error)=>{console.log(error)}
+      (stds)=>{
+        // console.log(stds)
+        this.students=stds;
+      }
       );
-
-
 
       this.SubjectService.getAll().subscribe(
         (subjs)=>{
-          console.log("sub", subjs)
-          this.subjects=subjs;
-          
-        },
-        (error)=>{console.log(error)}
+          // console.log(subjs)
+          this.Allsubjects=subjs; 
+        }
+        );
+        this.SubjectdegreesService.getAll().subscribe(
+          data=>this.AllSubjectdegrees=data
         );
   }
   selectedStdId:number;
   selectedSubsIds:number[]=[];
   selectedStdSubjets:Subject[]=[];
+  AllSubjectdegrees:Subjectdegrees[]=[]
 
   onChange(stuId){
-    this.SubjectService.getAll().subscribe(// Get All bujects
-      (subjs)=>{
-        console.log("Subject: ",subjs)
-        this.subjects=subjs;
-        
-      }, 
-      ()=>{},//Error
-      ()=>{
-        this.SubjectdegreesService.getAll().subscribe(
-          (subjs)=>{
-            console.log("Subject Students: ",subjs)
-            this.Subjectdegrees=subjs;
-             this.Subjectdegrees.forEach((subj)=>{
-                if(subj.StdId == stuId){
-                  console.log()
-                  this.selectedSubsIds.push(subj.SubId);
-                }
-             });// ForEach
+   
+    console.log(this.Allsubjects)
+    this.OtherSubs=[...this.Allsubjects];
 
-            
-          }
-        );// GetAll Data
+    this.AllSubjectdegrees.forEach(stdDeg => {
+      if(stdDeg.StdId==stuId)
+      {
+        this.OtherSubs.splice(this.OtherSubs.indexOf(this.OtherSubs.find(item=>item.Id==stdDeg.SubId)),1)
+      }
+    });
+    console.log(this.OtherSubs)
 
-      }, //Complete
-      );
+
 
     // this.subjects=[
     //   {Id:1,Name:"html"},{Id:2,Name:"js"},{Id:3,Name:"node"}];
+
     //  this.selectedStdSubjets=this.students.find(stb=>stb.Id==stuId).Subjects;
-    // //  console.log(this.selectedStdSubjets)
+     
     // this.selectedStdSubjets.forEach(sub1 => {
     //   this.subjects.splice(this.subjects.indexOf(this.subjects.find(sub=>sub.Id==sub1.Id)),1);
-    //   // this.subjects.push(this.subjects.find(sub=>sub.Id==sub1.Id));
-    //     //  console.log(this.subjects.indexOf(this.subjects.find(sub=>sub.Id==sub1.Id)))
-    //     //  console.log(this.subjects.indexOf(this.subjects.find(sub=>sub==sub1)))
-    //    }); 
-    //    console.log(this.subjects)
+      // this.subjects.push(this.subjects.find(sub=>sub.Id==sub1.Id));
+        //  console.log(this.subjects.indexOf(this.subjects.find(sub=>sub.Id==sub1.Id)))
+        //  console.log(this.subjects.indexOf(this.subjects.find(sub=>sub==sub1)))
+       //}); 
 
  }
 
   Assign(stuId,subsIds){
-    console.log("Assign", stuId, subsIds);
-    // console.log(subsIds);
-    this.Subjectdegrees=[];
-    subsIds.forEach(subId => {      
-      //   selectedStd.Subjects.push
-      //   (
-      //     this.subjects.find(sub=>sub.Id==subId)
-      //   )
-      // console.log(this.students)
-      this.Subjectdegrees.push(new Subjectdegrees(stuId, subId));
-    });
+    subsIds.forEach(subId => {
+      this.stdSub.StdId=stuId;
+      this.stdSub.SubId=subId;
+      this.SubjectdegreesService.addSubject(this.stdSub).subscribe(
+        (data)=>{
+          console.log(data)
+      }
+    )
 
-     this.SubjectdegreesService.addSubjectdegrees(this.Subjectdegrees).subscribe(a=>{});
+    });
+    // this.stdSub.StdId=stuId;
+    // this.stdSub.StdId=stuId;
+    // this.SubjectdegreesService.addSubject(this.stdSub).subscribe(
+
+    //   (data)=>{
+    //     console.log(data)
+    //   }
+    // )
+
+
+    // let selectedStd=this.students.find(stb=>stb.Id==stuId);
+    // subsIds.forEach(subId => {      
+    //     selectedStd.Subjects.push
+    //     (
+    //       this.subjects.find(sub=>sub.Id==subId)
+    //     )
+    //   console.log(this.students)
+    // });
+
+    // this.SubjectdegreesService.addSubject(this.nstd).subscribe(a=>this.subjectlist.push(a));
     
 
   }// Asign 
+
+  // getAllstdDeg(){
+  //   this.SubjectdegreesService.getAll().subscribe(
+  //     data=>console.log(data)
+  //   );
+
+  // }
+
 
   
 }
