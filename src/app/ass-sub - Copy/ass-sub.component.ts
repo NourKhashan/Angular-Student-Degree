@@ -81,30 +81,17 @@ export class AssSubComponent implements OnInit {
 
  }
 
-
- flag: number = 0;
   Assign(stuId,subsIds){
-    console.log("StudId: ", stuId);
-    console.log("SubIds: ", subsIds);
     subsIds.forEach(subId => {
       this.stdSub.StdId=stuId;
       this.stdSub.SubId=subId;
       this.SubjectdegreesService.addSubject(this.stdSub).subscribe(
         (data)=>{
           console.log(data)
-      },
-      (err)=>alert(err.message),
-   
-      ()=>{this.flag++; console.log("ddd ",this.flag); if(this.flag == subsIds.length){
-        alert("Done")
-      }}
+      }
     )
 
-    });// For
-
-
-console.log( this.flag, subsIds.length)
-    
+    });
     // this.stdSub.StdId=stuId;
     // this.stdSub.StdId=stuId;
     // this.SubjectdegreesService.addSubject(this.stdSub).subscribe(

@@ -15,7 +15,9 @@
 
 <ol >
   <li  *ngFor="let item of Students; let i=index">
-      {{item.Name}}:<input matInput placeholder="Degree" value="0" [(ngModel)]="degrees[i]" >
+      {{item.Name}}:<input matInput required placeholder="Degree" value="0" [(ngModel)]="degrees[i]"  name="field" #field="ngModel" [range]="[0, 100]" >
+      <p style="color:red" *ngIf="field.errors?.range">Range 0&100 </p>
+
 
   </li>
 

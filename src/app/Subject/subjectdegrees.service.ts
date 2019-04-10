@@ -29,6 +29,8 @@ export class SubjectdegreesService {
 
     return this.http.post<Subjectdegrees>(this.url, Subjectdegrees);
   }
+
+
   addSubject(Subjectdegrees:Subjectdegrees){
     console.log("Add Subject Service", Subjectdegrees)
 

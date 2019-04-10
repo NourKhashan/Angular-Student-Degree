@@ -15,6 +15,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations'
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 
+import { CustomFormsModule } from 'ng2-validation'
 
 
 import { StudentlistComponent } from './Student/studentlist/studentlist.component';
@@ -48,11 +49,12 @@ const appRoutes:Routes = [
     ErrorComponent,
     SubjectdegreesComponent,
     AssSubComponent,
-    AddstudentstosubjectComponent
+    AddstudentstosubjectComponent,
 
   ],
   imports: [
     BrowserModule,
+    CustomFormsModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,

@@ -1,0 +1,28 @@
+<!-- 
+<select [(ngModel)]="selectedStdId" (change)="onChange($event.target.value)">
+    <option *ngFor="let std of students" 
+    [disabled]="selectedStdSubjets.indexOf(std)>-1" [value]="std.Id">{{std.Name}}</option>
+</select>
+<select multiple [(ngModel)]="selectedSubId" >
+    <option *ngFor="let sub of subjects" [value]="sub.Id">{{sub.Name}}</option>
+</select>
+<button (click)="Assign(selectedStdId,selectedSubId)">Assign</button>-->
+
+ 
+<mat-form-field>
+    <mat-label>Students</mat-label>     
+        <mat-select [(ngModel)]="selectedStdId" (selectionChange)="onChange($event.value)">
+            <mat-option *ngFor="let std of students" 
+            [value]="std.Id">{{std.Name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+<br>
+    <mat-form-field>
+        <mat-label>Subjects</mat-label>
+        <mat-select  multiple [(ngModel)]="selectedSubId" >
+            <mat-option *ngFor="let sub of OtherSubs" [value]="sub.Id">{{sub.Name}}</mat-option>
+        </mat-select>
+    </mat-form-field> 
+
+<br><br>
+<button class="btn btn-primary"  (click)="Assign(selectedStdId,selectedSubId)" mat-button>Assign</button> 
